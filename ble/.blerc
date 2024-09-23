@@ -1,0 +1,10 @@
+# Transient prompt settings : use starhip character on the left prompt, and wipe the right prompt
+bleopt prompt_ps1_final='$(starship module character)'
+bleopt prompt_rps1_final=' '
+
+# Disable auto complete
+bleopt complete_auto_complete=
+
+# Load fzf
+ble-import -d integration/fzf-completion
+ble-import -d integration/fzf-key-bindings
