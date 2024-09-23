@@ -75,3 +75,9 @@ detect_folders = ['overlays']
 
 [azure]
 disabled = false
+
+[vagrant]
+# Remove vagrant version
+version_format = ''
+# vagrant takes ~100ms under WSL
+disabled = true
