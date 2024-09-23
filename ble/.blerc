@@ -5,6 +5,11 @@ bleopt prompt_rps1_final=' '
 # Disable auto complete
 bleopt complete_auto_complete=
 
+# C-up/down to navigate history, even for multiline commands
+# see https://github.com/akinomyoga/ble.sh/discussions/440#discussioncomment-9193589
+ble-bind -m emacs -f C-up 'history-prev'
+ble-bind -m emacs -f C-down 'history-next'
+
 # Load fzf
 ble-import -d integration/fzf-completion
 ble-import -d integration/fzf-key-bindings
