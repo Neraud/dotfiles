@@ -14,6 +14,7 @@ In both cases, it deploys:
 * [stow](https://www.gnu.org/software/stow/) to link files from this repo under home
 * [zoxide](https://github.com/ajeetdsouza/zoxide)
 * tmux
+* btop
 
 ### Bash
 

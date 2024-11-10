@@ -68,6 +68,17 @@ echo "==========================================================================
 
 echo ""
 echo "===================================================================================================="
+echo "Install tools"
+if [ "${os_id}" == "ubuntu" ] ; then
+    sudo apt-get -y install btop
+elif [ "${os_id}" == "arch" ] ; then
+    sudo pacman -S --noconfirm btop
+fi
+echo "===================================================================================================="
+
+
+echo ""
+echo "===================================================================================================="
 echo "Installing stow"
 if [ "${os_id}" == "ubuntu" ] ; then
     sudo apt-get -y install stow
@@ -107,10 +118,12 @@ fi
 
 # Make sure .config exists to avoid stowing it to the first package that uses it
 mkdir -p $HOME/.config
+# btop stores a log at $HOME/.config/btop/btop.log, so make sure the folder exist to avoid stowing it
+mkdir -p $HOME/.config/btop
 
 echo ""
 echo "Stowing commont dotfiles"
-for name in tmux; do
+for name in btop tmux; do
     echo " - $name"
     stow --target=$HOME --verbose --stow $name
 done
