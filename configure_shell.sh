@@ -5,8 +5,8 @@ function usage() {
     echo "It can run on Ubuntu or Arch systems."
     echo ""
     echo "Usage : "
-    echo "$0 (-s [bash])"
-    echo " -s shell : select which shell to install, bash (default)"
+    echo "$0 (-s [bash|zsh])"
+    echo " -s shell : select which shell to install, bash or zsh (default)"
 }
 
 while getopts "hs:" arg; do
@@ -43,10 +43,10 @@ if [ "${os_id}" == "arch" ] ; then
 fi
 
 if [ -z "${shell_to_install}" ] ; then
-    shell_to_install="bash"
+    shell_to_install="zsh"
     echo "Using default shell: ${shell_to_install}"
 else
-    echo "bash" | grep -w -q ${shell_to_install}
+    echo "bash zsh" | grep -w -q ${shell_to_install}
     if [ $? -ne 0 ] ; then
         echo "Shell ${shell_to_install} is not supported" >&2
         exit
@@ -96,6 +96,14 @@ EOF
     fi
 fi
 
+if [ "${shell_to_install}" == "zsh" ] ; then
+    if [ -f $HOME/.zshrc ] && [ ! -L $HOME/.zshrc ] ; then
+        echo "Existing .zshrc found, backuping"
+        # Stow refuses to overwrite a regular file.
+        mv $HOME/.zshrc $HOME/.zshrc.$(date '+%Y-%m-%d')
+    fi
+fi
+
 
 # Make sure .config exists to avoid stowing it to the first package that uses it
 mkdir -p $HOME/.config
@@ -106,8 +114,27 @@ if [ "${shell_to_install}" == "bash" ] ; then
         echo " - $name"
         stow --target=$HOME --verbose --stow $name
     done
+elif [ "${shell_to_install}" == "zsh" ] ; then
+    echo "Stowing zsh dotfiles"
+    for name in zsh; do
+        echo " - $name"
+        stow --target=$HOME --verbose --stow $name
+    done
 fi
 echo "===================================================================================================="
+
+
+if [ "${shell_to_install}" == "zsh" ] ; then
+    echo ""
+    echo "===================================================================================================="
+    echo "Installing zsh"
+    if [ "${os_id}" == "ubuntu" ] ; then
+        sudo apt-get -y install zsh
+    elif [ "${os_id}" == "arch" ] ; then
+        sudo pacman -S --noconfirm zsh
+    fi
+    echo "===================================================================================================="
+fi
 
 
 echo ""
