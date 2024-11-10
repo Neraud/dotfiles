@@ -13,6 +13,7 @@ In both cases, it deploys:
 * [fzf](https://github.com/junegunn/fzf)
 * [stow](https://www.gnu.org/software/stow/) to link files from this repo under home
 * [zoxide](https://github.com/ajeetdsouza/zoxide)
+* tmux
 
 ### Bash
 

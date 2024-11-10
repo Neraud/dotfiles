@@ -108,6 +108,12 @@ fi
 # Make sure .config exists to avoid stowing it to the first package that uses it
 mkdir -p $HOME/.config
 
+echo ""
+echo "Stowing commont dotfiles"
+for name in tmux; do
+    echo " - $name"
+    stow --target=$HOME --verbose --stow $name
+done
 if [ "${shell_to_install}" == "bash" ] ; then
     echo "Stowing bash dotfiles"
     for name in bash ble starship; do
@@ -238,3 +244,35 @@ echo "==========================================================================
 #    sudo pacman -S --noconfirm yazi ffmpegthumbnailer p7zip jq poppler fd ripgrep imagemagick
 #fi
 #echo "===================================================================================================="
+
+
+echo ""
+echo "===================================================================================================="
+echo "Installing tmux"
+if [ "${os_id}" == "ubuntu" ] ; then
+    sudo apt-get -y install tmux
+    # Requirements for tmux-autoreload
+    sudo apt-get -y install entr
+elif [ "${os_id}" == "arch" ] ; then
+    sudo pacman -S --noconfirm tmux
+    # Requirements for tmux-autoreload
+    sudo pacman -S --noconfirm entr
+fi
+
+echo ""
+echo "Installing tmux plugin-manager"
+if [ "${os_id}" == "arch" -a ${yay_installed} -eq 1 ] ; then
+    yay -S --noconfirm tmux-plugin-manager
+    tpm_path=/usr/share/tmux-plugin-manager
+    echo "Linking tmp under the home folder"
+else
+    tpm_path=~/.tmux/plugins/tpm
+    if [ -d "${tpm_path}" ] ; then
+        rm -Rf "${tpm_path}"
+    fi
+    git clone https://github.com/tmux-plugins/tpm "${tpm_path}"
+fi
+
+echo "Installing plugins"
+${tpm_path}/bin/install_plugins
+echo "===================================================================================================="
