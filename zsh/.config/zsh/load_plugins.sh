@@ -1,4 +1,5 @@
 # Load plugins.
+source ${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting-catppuccin/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
 source ${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ${ZSH_PLUGINS_DIR}/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ${ZSH_PLUGINS_DIR}/zsh-completions/zsh-completions.plugin.zsh

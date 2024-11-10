@@ -2,7 +2,10 @@
 ZSH_PLUGINS_DIR=~/.zsh/plugins
 mkdir -p ${ZSH_PLUGINS_DIR}
 
-# Clone and compile to wordcode missing plugins.
+if [[ ! -e ${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting-catppuccin ]]; then
+  git clone --depth=1 https://github.com/catppuccin/zsh-syntax-highlighting.git ${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting-catppuccin
+fi
+
 if [[ ! -e ${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting ]]; then
   git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting
 fi

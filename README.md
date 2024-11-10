@@ -30,6 +30,7 @@ For bash, it adds:
 
 * Zsh, with a configured `.zshrc` and plugins:
   * [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
+    * with [Catppuccin theme](https://github.com/catppuccin/zsh-syntax-highlighting.git)
   * [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions.git)
   * [zsh-completions](https://github.com/zsh-users/zsh-completions.git)
 * [Powerlevel10k](https://github.com/romkatv/powerlevel10k.git) prompt
