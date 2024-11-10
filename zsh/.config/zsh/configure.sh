@@ -13,13 +13,6 @@ HISTFILE=~/.zsh_history
 # Ignore command lines when the first character on the line is a space
 setopt HIST_IGNORE_SPACE
 
-# Use emacs keybindings even if our EDITOR is set to vi
-bindkey -e
-
-# bind control + arrows to prev/next words
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
-
 
 ##################################################
 #                   Completion                   #
