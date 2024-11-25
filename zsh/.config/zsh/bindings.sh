@@ -4,12 +4,16 @@ bindkey -e
 ##################################################
 #                  Key bindings                  #
 ##################################################
-# See https://wiki.archlinux.org/title/Zsh#Key_bindings
+# Mostly copied from https://wiki.archlinux.org/title/Zsh#Key_bindings
 
 # create a zkbd compatible hash;
 # to add other keys to this hash, see: man 5 terminfo
 typeset -g -A key
 
+# See key mapping: 
+# https://man.archlinux.org/man/user_caps.5
+# https://github.com/mirror/ncurses/blob/master/include/Caps-ncurses
+#(or https://github.com/charmbracelet/bubbletea/blob/master/terminfo.go for a complete mapping example)
 key[Home]="${terminfo[khome]}"
 key[End]="${terminfo[kend]}"
 key[Insert]="${terminfo[kich1]}"
@@ -22,6 +26,10 @@ key[Right]="${terminfo[kcuf1]}"
 key[PageUp]="${terminfo[kpp]}"
 key[PageDown]="${terminfo[knp]}"
 key[Shift-Tab]="${terminfo[kcbt]}"
+key[Control-Up]="${terminfo[kUP5]}"
+key[Control-Down]="${terminfo[kDN5]}"
+key[Control-Left]="${terminfo[kLFT5]}"
+key[Control-Right]="${terminfo[kRIT5]}"
 
 # setup key accordingly
 [[ -n "${key[Home]}"      ]] && bindkey -- "${key[Home]}"       beginning-of-line
@@ -52,10 +60,8 @@ fi
 #      Shift, Alt, Ctrl and Meta modifiers       #
 ##################################################
 # See https://wiki.archlinux.org/title/Zsh#Shift,_Alt,_Ctrl_and_Meta_modifiers
-# bind control + arrows to prev/next words
-key[Control-Left]="${terminfo[kLFT5]}"
-key[Control-Right]="${terminfo[kRIT5]}"
 
+# bind control + arrows to prev/next words
 [[ -n "${key[Control-Left]}"  ]] && bindkey -- "${key[Control-Left]}"  backward-word
 [[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
 
@@ -63,4 +69,7 @@ key[Control-Right]="${terminfo[kRIT5]}"
 ##################################################
 #                Custom bindings                 #
 ##################################################
-# Nothing for now
+
+# Control-Up/Down to navigate history, even for multiline commands
+[[ -n "${key[Control-Up]}"   ]] && bindkey -- "${key[Control-Up]}"   up-history
+[[ -n "${key[Control-Down]}" ]] && bindkey -- "${key[Control-Down]}" down-history

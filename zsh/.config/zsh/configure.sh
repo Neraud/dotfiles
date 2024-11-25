@@ -23,9 +23,6 @@ setopt AUTO_MENU
 # Do menu-driven completion.
 zstyle ':completion:*' menu select
 
-# [Shift-Tab] - move through the completion menu backwards
-bindkey '^[[Z' reverse-menu-complete
-
 # Color completion for some things.
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
