@@ -6,6 +6,9 @@ POWERLEVEL9K_CONFIG_FILE=${ZSH_CONFIG_DIR}/p10k.zsh
 ##################################################
 #                    General                     #
 ##################################################
+# Do not run the global startup files /etc/zprofile, /etc/zshrc, /etc/zlogin and /etc/zlogout
+setopt NO_GLOBAL_RCS
+
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
