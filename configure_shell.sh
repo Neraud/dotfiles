@@ -264,12 +264,8 @@ echo "==========================================================================
 echo "Installing tmux"
 if [ "${os_id}" == "ubuntu" ] ; then
     sudo apt-get -y install tmux
-    # Requirements for tmux-autoreload
-    sudo apt-get -y install entr
 elif [ "${os_id}" == "arch" ] ; then
     sudo pacman -S --noconfirm tmux
-    # Requirements for tmux-autoreload
-    sudo pacman -S --noconfirm entr
 fi
 
 echo ""
