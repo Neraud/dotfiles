@@ -210,7 +210,7 @@ if [ "${os_id}" == "ubuntu" ] ; then
     sudo tar zxf /tmp/fzf.tar.gz -C /usr/local/bin/
     rm /tmp/fzf.tar.gz
 
-    
+
     if [ "${shell_to_install}" == "bash" ] ; then
         echo "Installing fzf for Ble.sh integration"
         sudo mkdir -p /usr/local/share/fzf
@@ -263,18 +263,18 @@ echo ""
 echo "===================================================================================================="
 echo "Installing tmux"
 if [ "${os_id}" == "ubuntu" ] ; then
-    sudo apt-get -y install tmux
+    sudo apt-get -y install tmux tmuxp
 elif [ "${os_id}" == "arch" ] ; then
-    sudo pacman -S --noconfirm tmux
+    sudo pacman -S --noconfirm tmux tmuxp
 fi
 
 echo ""
 echo "Installing tmux plugin-manager"
-    tpm_path=~/.tmux/plugins/tpm
-    if [ -d "${tpm_path}" ] ; then
-        rm -Rf "${tpm_path}"
-    fi
-    git clone https://github.com/tmux-plugins/tpm "${tpm_path}"
+tpm_path=~/.tmux/plugins/tpm
+if [ -d "${tpm_path}" ] ; then
+    rm -Rf "${tpm_path}"
+fi
+git clone https://github.com/tmux-plugins/tpm "${tpm_path}"
 
 echo "Installing plugins"
 ${tpm_path}/bin/install_plugins
