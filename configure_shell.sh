@@ -270,17 +270,11 @@ fi
 
 echo ""
 echo "Installing tmux plugin-manager"
-if [ "${os_id}" == "arch" -a ${yay_installed} -eq 1 ] ; then
-    yay -S --noconfirm tmux-plugin-manager
-    tpm_path=/usr/share/tmux-plugin-manager
-    echo "Linking tmp under the home folder"
-else
     tpm_path=~/.tmux/plugins/tpm
     if [ -d "${tpm_path}" ] ; then
         rm -Rf "${tpm_path}"
     fi
     git clone https://github.com/tmux-plugins/tpm "${tpm_path}"
-fi
 
 echo "Installing plugins"
 ${tpm_path}/bin/install_plugins
