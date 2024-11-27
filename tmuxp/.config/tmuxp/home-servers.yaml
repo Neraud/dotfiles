@@ -1,0 +1,20 @@
+session_name: home-servers
+windows:
+  - window_name: Servers
+    #layout: tiled
+    layout: 6e68,170x38,0,0[170x19,0,0{56x19,0,0,0,56x19,57,0,2,56x19,114,0,3},170x18,0,20{85x18,0,20,1,84x18,86,20,5}]
+    panes:
+    - echo "master-1"
+    - echo "master-2"
+    - echo "master-3"
+    - echo "node-1"
+    - echo "node-1"
+  - window_name: K8S
+    #layout: main-horizontal
+    layout: cebd,156x35,0,0[156x25,0,0{78x25,0,0,0,77x25,79,0,3},156x9,0,26,2]
+    #options:
+    #  main-pane-height: 33%
+    panes:
+    - blank
+    - blank
+    - blank

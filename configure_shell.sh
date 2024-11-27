@@ -122,8 +122,8 @@ mkdir -p $HOME/.config
 mkdir -p $HOME/.config/btop
 
 echo ""
-echo "Stowing commont dotfiles"
-for name in btop tmux; do
+echo "Stowing common dotfiles"
+for name in btop tmux tmuxp; do
     echo " - $name"
     stow --target=$HOME --verbose --stow $name
 done

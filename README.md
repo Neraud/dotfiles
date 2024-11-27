@@ -13,7 +13,7 @@ In both cases, it deploys:
 * [fzf](https://github.com/junegunn/fzf)
 * [stow](https://www.gnu.org/software/stow/) to link files from this repo under home
 * [zoxide](https://github.com/ajeetdsouza/zoxide)
-* tmux
+* tmux and tmuxp
 * btop
 
 ### Bash
@@ -26,7 +26,7 @@ For bash, it adds:
 
 ### Zsh
 
-For bash, it adds:
+For zsh, it adds:
 
 * Zsh, with a configured `.zshrc` and plugins:
   * [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting.git)
