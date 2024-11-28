@@ -113,6 +113,11 @@ if [ "${shell_to_install}" == "zsh" ] ; then
         # Stow refuses to overwrite a regular file.
         mv $HOME/.zshrc $HOME/.zshrc.$(date '+%Y-%m-%d')
     fi
+    if [ -f $HOME/.zshenv ] && [ ! -L $HOME/.zshenv ] ; then
+        echo "Existing .zshenv found, backuping"
+        # Stow refuses to overwrite a regular file.
+        mv $HOME/.zshenv $HOME/.zshenv.$(date '+%Y-%m-%d')
+    fi
 fi
 
 
