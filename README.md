@@ -5,6 +5,8 @@
 `configure_shell.sh` installs and configures tools to have a working `bash` or `zsh` shell.
 It has been developed for Ubuntu (22 or 24 LTS) and Arch.
 
+Configurations in this repo are linked to their path (usually under $HOME/.config) using GNU stow.
+
 ### Common tools
 
 In both cases, it deploys:
@@ -34,3 +36,6 @@ For zsh, it adds:
   * [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions.git)
   * [zsh-completions](https://github.com/zsh-users/zsh-completions.git)
 * [Powerlevel10k](https://github.com/romkatv/powerlevel10k.git) prompt
+
+zsh default configurations are deployed under `$HOME/.config/zsh` (see `zsh/.config/zsh`).
+Host specific configurations are supported, and are optionally loaded from `$HOME/.config/zsh.local`.

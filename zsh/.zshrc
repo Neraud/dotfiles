@@ -15,5 +15,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 for f (${ZSH_CONFIG_DIR}/config.d/*.zsh(N)) source $f
+for f (${ZSH_LOCAL_CONFIG_DIR}/config.d/*.zsh(N)) source $f
 source ${ZSH_CONFIG_DIR}/load_plugins.zsh
 source ${ZSH_CONFIG_DIR}/completion.zsh
