@@ -130,7 +130,7 @@ fi
 
 echo ""
 echo "Stowing common dotfiles"
-for name in btop tmux tmuxp k9s; do
+for name in btop tmux tmuxp k9s bat; do
     echo " - $name"
     stow --target=$HOME --verbose --stow $name
 done
@@ -267,6 +267,21 @@ if [ "${os_id}" == "ubuntu" ] ; then
     rm /tmp/eza-completion.tar.gz
 elif [ "${os_id}" == "arch" ] ; then
     sudo pacman -S --noconfirm eza
+fi
+echo "===================================================================================================="
+
+
+echo ""
+echo "===================================================================================================="
+echo "Installing bat"
+if [ "${os_id}" == "ubuntu" ] ; then
+    sudo apt-get -y install bat
+    # The APT package installs bat as `batcat`
+    # Create a symlink to bat
+    mkdir -p ~/.local/bin
+    ln -s /usr/bin/batcat ~/.local/bin/bat
+elif [ "${os_id}" == "arch" ] ; then
+    sudo pacman -S --noconfirm bat
 fi
 echo "===================================================================================================="
 

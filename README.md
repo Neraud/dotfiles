@@ -16,6 +16,7 @@ In both cases, it deploys:
 * [stow](https://www.gnu.org/software/stow/) to link files from this repo under home
 * [zoxide](https://github.com/ajeetdsouza/zoxide)
 * [eza](https://github.com/eza-community/eza)
+* [bat](https://github.com/sharkdp/bat)
 * tmux and tmuxp
 * btop
 * [k9s](https://github.com/derailed/k9s)
