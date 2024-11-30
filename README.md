@@ -17,6 +17,7 @@ In both cases, it deploys:
 * [zoxide](https://github.com/ajeetdsouza/zoxide)
 * tmux and tmuxp
 * btop
+* [k9s](https://github.com/derailed/k9s)
 
 ### Bash
 

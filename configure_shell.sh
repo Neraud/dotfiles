@@ -86,6 +86,13 @@ elif [ "${os_id}" == "arch" ] ; then
     sudo pacman -S --noconfirm stow
 fi
 
+# Make sure .config exists to avoid stowing it to the first package that uses it
+mkdir -p $HOME/.config
+# btop stores a log at $HOME/.config/btop/btop.log, so make sure the folder exist to avoid stowing it
+mkdir -p $HOME/.config/btop
+# Make sure the k9s clusters folder exists locally
+mkdir -p $HOME/.config/k9s/clusters
+
 if [ "${shell_to_install}" == "bash" ] ; then
     if [ -f $HOME/.bashrc ] && [ ! -L $HOME/.bashrc ] ; then
         echo "Existing .bashrc found, backuping"
@@ -121,14 +128,9 @@ if [ "${shell_to_install}" == "zsh" ] ; then
 fi
 
 
-# Make sure .config exists to avoid stowing it to the first package that uses it
-mkdir -p $HOME/.config
-# btop stores a log at $HOME/.config/btop/btop.log, so make sure the folder exist to avoid stowing it
-mkdir -p $HOME/.config/btop
-
 echo ""
 echo "Stowing common dotfiles"
-for name in btop tmux tmuxp; do
+for name in btop tmux tmuxp k9s; do
     echo " - $name"
     stow --target=$HOME --verbose --stow $name
 done
@@ -283,4 +285,18 @@ git clone https://github.com/tmux-plugins/tpm "${tpm_path}"
 
 echo "Installing plugins"
 ${tpm_path}/bin/install_plugins
+echo "===================================================================================================="
+
+
+echo ""
+echo "===================================================================================================="
+echo "Installing k9s"
+if [ "${os_id}" == "ubuntu" ] ; then
+    k9s_release=$(curl -s https://api.github.com/repos/derailed/k9s/releases | jq -r '.[0].name')
+    curl -Lo /tmp/k9s_linux_amd64.deb https://github.com/derailed/k9s/releases/download/${k9s_release}/k9s_linux_amd64.deb
+    sudo apt-get -y install /tmp/k9s_linux_amd64.deb
+    rm /tmp/k9s_linux_amd64.deb
+elif [ "${os_id}" == "arch" ] ; then
+    sudo pacman -S --noconfirm k9s
+fi
 echo "===================================================================================================="
