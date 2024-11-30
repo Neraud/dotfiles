@@ -247,6 +247,30 @@ fi
 echo "===================================================================================================="
 
 
+
+echo ""
+echo "===================================================================================================="
+echo "Installing eza"
+if [ "${os_id}" == "ubuntu" ] ; then
+    # Using the custom APT repo doesn't install compression, use github release instead
+
+    eza_binary_url=$(curl https://api.github.com/repos/eza-community/eza/releases | jq -r '.[0].assets[] | select(.name | test("eza_x86_64-unknown-linux-gnu.tar.gz")) | .browser_download_url')
+    eza_completion_url=$(curl https://api.github.com/repos/eza-community/eza/releases | jq -r '.[0].assets[] | select(.name | test("completion.*.tar.gz")) | .browser_download_url')
+
+    curl -L -o- ${eza_binary_url} | sudo tar zxf - -C /usr/local/bin/
+    
+    curl -Lo /tmp/eza-completion.tar.gz ${eza_completion_url}
+    sudo tar zxvf /tmp/eza-completion.tar.gz --strip-components=3 -C /etc/bash_completion.d/ --no-anchored eza
+    if [ "${shell_to_install}" == "zsh" ] ; then
+        sudo tar zxvf /tmp/eza-completion.tar.gz --strip-components=3 -C /usr/local/share/zsh/site-functions/ --no-anchored _eza
+    fi
+    rm /tmp/eza-completion.tar.gz
+elif [ "${os_id}" == "arch" ] ; then
+    sudo pacman -S --noconfirm eza
+fi
+echo "===================================================================================================="
+
+
 #echo ""
 #echo "===================================================================================================="
 #echo "Installing Yazi"
