@@ -1,21 +1,19 @@
 #!/usr/bin/env bash
 
 function usage() {
-    echo "This script installs and configures a shell."
+    echo "This script installs and configures a zsh shell and tools."
     echo "It can run on Ubuntu or Arch systems."
     echo ""
     echo "Usage : "
-    echo "$0 (-s [bash|zsh])"
-    echo " -s shell : select which shell to install, bash or zsh (default)"
+    echo "$0"
 }
 
-while getopts "hs:" arg; do
+while getopts "h" arg; do
     case $arg in
     h)
         usage
         exit 0
         ;;
-    s) shell_to_install=$OPTARG ;;
     esac
 done
 
@@ -40,18 +38,6 @@ if [ "${os_id}" == "arch" ] ; then
     if [ $? -eq 0 ] ; then
         yay_installed=1
     fi
-fi
-
-if [ -z "${shell_to_install}" ] ; then
-    shell_to_install="zsh"
-    echo "Using default shell: ${shell_to_install}"
-else
-    echo "bash zsh" | grep -w -q ${shell_to_install}
-    if [ $? -ne 0 ] ; then
-        echo "Shell ${shell_to_install} is not supported" >&2
-        exit
-    fi
-    echo "Using shell: ${shell_to_install}"
 fi
 
 
@@ -93,74 +79,37 @@ mkdir -p $HOME/.config/btop
 # Make sure the k9s clusters folder exists locally
 mkdir -p $HOME/.config/k9s/clusters
 
-if [ "${shell_to_install}" == "bash" ] ; then
-    if [ -f $HOME/.bashrc ] && [ ! -L $HOME/.bashrc ] ; then
-        echo "Existing .bashrc found, backuping"
-        # Stow refuses to overwrite a regular file, and .bashrc is created by default.
-        mv $HOME/.bashrc $HOME/.bashrc.$(date '+%Y-%m-%d')
-    fi
 
-    if [ ! -f $HOME/.bash_profile ] ; then
-        echo "No .bash_profile found, creating a default one"
-        cat <<EOF > $HOME/.bash_profile
-# .bash_profile
-
-# Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
+if [ -f $HOME/.zshrc ] && [ ! -L $HOME/.zshrc ] ; then
+    echo "Existing .zshrc found, backuping"
+    # Stow refuses to overwrite a regular file.
+    mv $HOME/.zshrc $HOME/.zshrc.$(date '+%Y-%m-%d')
 fi
-
-EOF
-    fi
-fi
-
-if [ "${shell_to_install}" == "zsh" ] ; then
-    if [ -f $HOME/.zshrc ] && [ ! -L $HOME/.zshrc ] ; then
-        echo "Existing .zshrc found, backuping"
-        # Stow refuses to overwrite a regular file.
-        mv $HOME/.zshrc $HOME/.zshrc.$(date '+%Y-%m-%d')
-    fi
-    if [ -f $HOME/.zshenv ] && [ ! -L $HOME/.zshenv ] ; then
-        echo "Existing .zshenv found, backuping"
-        # Stow refuses to overwrite a regular file.
-        mv $HOME/.zshenv $HOME/.zshenv.$(date '+%Y-%m-%d')
-    fi
+if [ -f $HOME/.zshenv ] && [ ! -L $HOME/.zshenv ] ; then
+    echo "Existing .zshenv found, backuping"
+    # Stow refuses to overwrite a regular file.
+    mv $HOME/.zshenv $HOME/.zshenv.$(date '+%Y-%m-%d')
 fi
 
 
 echo ""
-echo "Stowing common dotfiles"
-for name in btop tmux tmuxp k9s bat yazi; do
+echo "Stowing dotfiles"
+for name in bat btop k9s tmux tmuxp yazi zsh; do
     echo " - $name"
     stow --target=$HOME --verbose --stow $name
 done
-if [ "${shell_to_install}" == "bash" ] ; then
-    echo "Stowing bash dotfiles"
-    for name in bash ble starship; do
-        echo " - $name"
-        stow --target=$HOME --verbose --stow $name
-    done
-elif [ "${shell_to_install}" == "zsh" ] ; then
-    echo "Stowing zsh dotfiles"
-    for name in zsh; do
-        echo " - $name"
-        stow --target=$HOME --verbose --stow $name
-    done
-fi
 echo "===================================================================================================="
 
 
-if [ "${shell_to_install}" == "zsh" ] ; then
-    echo ""
-    echo "===================================================================================================="
-    echo "Installing zsh"
-    if [ "${os_id}" == "ubuntu" ] ; then
-        sudo apt-get -y install zsh
-    elif [ "${os_id}" == "arch" ] ; then
-        sudo pacman -S --noconfirm zsh
-    fi
-    echo "===================================================================================================="
+echo ""
+echo "===================================================================================================="
+echo "Installing zsh"
+if [ "${os_id}" == "ubuntu" ] ; then
+    sudo apt-get -y install zsh
+elif [ "${os_id}" == "arch" ] ; then
+    sudo pacman -S --noconfirm zsh
 fi
+echo "===================================================================================================="
 
 
 echo ""
@@ -179,34 +128,6 @@ fi
 echo "===================================================================================================="
 
 
-if [ "${shell_to_install}" == "bash" ] ; then
-    echo ""
-    echo "===================================================================================================="
-    echo "Installing Starship"
-    if [ "${os_id}" == "ubuntu" ] ; then
-        curl -Lo /tmp/starship.tar.gz https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz
-        sudo tar zxf /tmp/starship.tar.gz -C /usr/local/bin/
-        rm /tmp/starship.tar.gz
-    elif [ "${os_id}" == "arch" ] ; then
-        sudo pacman -S --noconfirm starship
-    fi
-    echo "===================================================================================================="
-
-
-    echo ""
-    echo "===================================================================================================="
-    echo "Installing Ble.sh"
-    if [ "${os_id}" == "arch" -a ${yay_installed} -eq 1 ] ; then
-        yay -S --noconfirm blesh-git
-    else
-        if [ -d ~/ble-nightly ] ; then
-            rm -Rf ~/ble-nightly
-        fi
-        curl -L https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly.tar.xz | tar xJf - -C $HOME
-    fi
-    echo "===================================================================================================="
-fi
-
 echo ""
 echo "===================================================================================================="
 echo "Installing fzf"
@@ -216,17 +137,6 @@ if [ "${os_id}" == "ubuntu" ] ; then
     curl -Lo /tmp/fzf.tar.gz https://github.com/junegunn/fzf/releases/download/v${fzf_release}/fzf-${fzf_release}-linux_amd64.tar.gz
     sudo tar zxf /tmp/fzf.tar.gz -C /usr/local/bin/
     rm /tmp/fzf.tar.gz
-
-
-    if [ "${shell_to_install}" == "bash" ] ; then
-        echo "Installing fzf for Ble.sh integration"
-        sudo mkdir -p /usr/local/share/fzf
-        # Ble.sh integration requires scripts that are not bundled in the binary archive
-        # We fetch them from the source code and save them at the expected paths
-        curl -Lo /tmp/fzf-src.tar.gz https://github.com/junegunn/fzf/archive/refs/tags/v${fzf_release}.tar.gz
-        sudo tar zxf /tmp/fzf-src.tar.gz --strip-components=1 -C /usr/local/share/fzf/ fzf-${fzf_release}/shell
-        rm /tmp/fzf-src.tar.gz
-    fi
 elif [ "${os_id}" == "arch" ] ; then
     sudo pacman -S --noconfirm fzf
 fi
@@ -260,10 +170,10 @@ if [ "${os_id}" == "ubuntu" ] ; then
     curl -L -o- ${eza_binary_url} | sudo tar zxf - -C /usr/local/bin/
     
     curl -Lo /tmp/eza-completion.tar.gz ${eza_completion_url}
-    sudo tar zxvf /tmp/eza-completion.tar.gz --strip-components=3 -C /etc/bash_completion.d/ --no-anchored eza
-    if [ "${shell_to_install}" == "zsh" ] ; then
-        sudo tar zxvf /tmp/eza-completion.tar.gz --strip-components=3 -C /usr/local/share/zsh/site-functions/ --no-anchored _eza
+    if [ -d /etc/bash_completion.d ] ; then
+        sudo tar zxvf /tmp/eza-completion.tar.gz --strip-components=3 -C /etc/bash_completion.d/ --no-anchored eza
     fi
+    sudo tar zxvf /tmp/eza-completion.tar.gz --strip-components=3 -C /usr/local/share/zsh/site-functions/ --no-anchored _eza
     rm /tmp/eza-completion.tar.gz
 elif [ "${os_id}" == "arch" ] ; then
     sudo pacman -S --noconfirm eza
