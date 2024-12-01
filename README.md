@@ -17,6 +17,7 @@ In both cases, it deploys:
 * [zoxide](https://github.com/ajeetdsouza/zoxide)
 * [eza](https://github.com/eza-community/eza)
 * [bat](https://github.com/sharkdp/bat)
+* [yazi](https://github.com/sxyazi/yazi)
 * tmux and tmuxp
 * btop
 * [k9s](https://github.com/derailed/k9s)

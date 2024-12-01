@@ -130,7 +130,7 @@ fi
 
 echo ""
 echo "Stowing common dotfiles"
-for name in btop tmux tmuxp k9s bat; do
+for name in btop tmux tmuxp k9s bat yazi; do
     echo " - $name"
     stow --target=$HOME --verbose --stow $name
 done
@@ -286,23 +286,23 @@ fi
 echo "===================================================================================================="
 
 
-#echo ""
-#echo "===================================================================================================="
-#echo "Installing Yazi"
-#if [ "${os_id}" == "ubuntu" ] ; then
-#    echo "Install Yazi requirements"
-#    sudo apt-get -y install ffmpegthumbnailer p7zip jq poppler-utils fd-find ripgrep imagemagick
-#    curl -Lo /tmp/yazi.zip https://github.com/sxyazi/yazi/releases/latest/download/yazi-x86_64-unknown-linux-gnu.zip
-#    sudo unzip -o -j /tmp/yazi.zip yazi-x86_64-unknown-linux-gnu/ya yazi-x86_64-unknown-linux-gnu/yazi -d /usr/local/bin
-#    if [ -d /etc/bash_completion.d ] ; then
-#        sudo unzip -o -j /tmp/yazi.zip yazi-x86_64-unknown-linux-gnu/completions/ya.bash yazi-x86_64-unknown-linux-gnu/completions/yazi.bash -d /etc/bash_completion.d/
-#    fi
-#    # TODO zsh completion ?
-#    rm /tmp/yazi.zip
-#elif [ "${os_id}" == "arch" ] ; then
-#    sudo pacman -S --noconfirm yazi ffmpegthumbnailer p7zip jq poppler fd ripgrep imagemagick
-#fi
-#echo "===================================================================================================="
+echo ""
+echo "===================================================================================================="
+echo "Installing Yazi"
+if [ "${os_id}" == "ubuntu" ] ; then
+    echo "Install Yazi requirements"
+    sudo apt-get -y install ffmpegthumbnailer p7zip jq poppler-utils fd-find ripgrep imagemagick
+    curl -Lo /tmp/yazi.zip https://github.com/sxyazi/yazi/releases/latest/download/yazi-x86_64-unknown-linux-gnu.zip
+    sudo unzip -o -j /tmp/yazi.zip yazi-x86_64-unknown-linux-gnu/ya yazi-x86_64-unknown-linux-gnu/yazi -d /usr/local/bin
+    if [ -d /etc/bash_completion.d ] ; then
+        sudo unzip -o -j /tmp/yazi.zip yazi-x86_64-unknown-linux-gnu/completions/ya.bash yazi-x86_64-unknown-linux-gnu/completions/yazi.bash -d /etc/bash_completion.d/
+    fi
+    # TODO zsh completion ?
+    rm /tmp/yazi.zip
+elif [ "${os_id}" == "arch" ] ; then
+    sudo pacman -S --noconfirm yazi ffmpegthumbnailer p7zip jq poppler fd ripgrep imagemagick
+fi
+echo "===================================================================================================="
 
 
 echo ""
