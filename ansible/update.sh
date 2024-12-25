@@ -51,3 +51,21 @@ update_ansible_variable yazi yazi_version ${yazi_version}
 
 zoxide_version=$(curl -s https://api.github.com/repos/ajeetdsouza/zoxide/releases | jq -r '.[0].name')
 update_ansible_variable zoxide zoxide_version ${zoxide_version}
+
+echo ""
+echo "Updating files in dotfiles"
+echo "- bat (catppuccin theme)"
+curl -sL -o "${DOTFILES_ROOT}/bat/.config/bat/themes/catppuccin-mocha.tmTheme" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme
+
+echo "- btop (catppuccin theme)"
+curl -sL -o "${DOTFILES_ROOT}/btop/.config/btop/themes/catppuccin_mocha.theme" https://github.com/catppuccin/btop/raw/main/themes/catppuccin_mocha.theme
+
+echo "- k9s (catppuccin theme)"
+curl -sL https://github.com/catppuccin/k9s/archive/main.tar.gz | tar xz -C "${DOTFILES_ROOT}/k9s/.config/k9s/skins" --strip-components=2 k9s-main/dist
+
+echo "- kitty (catppuccin theme)"
+curl -sL -o "${DOTFILES_ROOT}/kitty/.config/kitty/current-theme.conf" https://raw.githubusercontent.com/catppuccin/kitty/refs/heads/main/themes/mocha.conf
+
+echo "- yazi (catppuccin theme)"
+curl -sL -o "${DOTFILES_ROOT}/yazi/.config/yazi/theme.toml" https://raw.githubusercontent.com/catppuccin/yazi/refs/heads/main/themes/mocha/catppuccin-mocha-lavender.toml
+sed -i -E 's|^syntect_theme +=.*|syntect_theme = "~/.config/bat/themes/catppuccin-mocha.tmTheme"|' ${DOTFILES_ROOT}/yazi/.config/yazi/theme.toml
