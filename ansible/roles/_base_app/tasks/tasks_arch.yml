@@ -1,0 +1,6 @@
+---
+- name: "[{{ ansible_parent_role_names | first }}] Install packages (Arch)"
+  community.general.pacman:
+    name: "{{ packages_pacman }}"
+    state: present
+  become: yes

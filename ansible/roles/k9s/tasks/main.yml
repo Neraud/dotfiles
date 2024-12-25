@@ -1,0 +1,17 @@
+---
+- name: Install and configure k9s
+  ansible.builtin.import_role:
+    name: _base_app
+  vars:
+    packages_pacman:
+      - k9s
+    packages_apt: []
+    pre_stow_folders:
+      # Make sure the k9s clusters folder exists locally
+      - .config/k9s/clusters
+    packages_stow:
+      - k9s
+
+- name: Install k9s (Ubuntu)
+  ansible.builtin.include_tasks: tasks_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'

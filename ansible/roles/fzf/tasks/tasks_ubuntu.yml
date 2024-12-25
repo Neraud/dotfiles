@@ -1,0 +1,14 @@
+---
+- name: Get installed fzf version
+  command: fzf --version
+  changed_when: no
+  failed_when: no
+  register: current_fzf_version
+
+- name: Install fzf from the Github releases
+  ansible.builtin.unarchive:
+    src: https://github.com/junegunn/fzf/releases/download/v{{ fzf_version }}/fzf-{{ fzf_version }}-linux_amd64.tar.gz
+    dest: /usr/local/bin/
+    remote_src: yes
+  become: yes
+  when: fzf_version not in current_fzf_version.stdout

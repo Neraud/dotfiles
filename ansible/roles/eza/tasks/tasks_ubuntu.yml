@@ -1,0 +1,48 @@
+---
+- name: Get installed eza version
+  command: eza --version
+  changed_when: no
+  failed_when: no
+  register: current_eza_version
+
+- name: Install eza from the Github releases
+  block:
+    - name: Install eza from the Github releases
+      ansible.builtin.unarchive:
+        src: https://github.com/eza-community/eza/releases/download/{{ eza_version }}/eza_x86_64-unknown-linux-gnu.tar.gz
+        dest: /usr/local/bin/
+        remote_src: yes
+      become: yes
+
+    - name: Download eza completions from the Github releases
+      ansible.builtin.get_url:
+        url: https://github.com/eza-community/eza/releases/download/{{ eza_version }}/completions-{{ eza_version[1:] }}.tar.gz
+        dest: /tmp/eza-completions.tar.gz
+
+    - name: Install eza bash completion
+      ansible.builtin.unarchive:
+        src: /tmp/eza-completions.tar.gz
+        dest: /etc/bash_completion.d
+        extra_opts:
+          - --strip-components=3
+          - --no-anchored
+        include:
+          - eza
+      become: yes
+
+    - name: Install eza zsh completion
+      ansible.builtin.unarchive:
+        src: /tmp/eza-completions.tar.gz
+        dest: /usr/local/share/zsh/site-functions/
+        extra_opts:
+          - --strip-components=3
+          - --no-anchored
+        include:
+          - _eza
+      become: yes
+
+    - name: Delete temporary file
+      ansible.builtin.file:
+        path: /tmp/eza-completions.tar.gz
+        state: absent
+  when: eza_version not in current_eza_version.stdout

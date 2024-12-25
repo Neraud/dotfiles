@@ -1,0 +1,14 @@
+---
+- name: Install and configure fzf
+  ansible.builtin.import_role:
+    name: _base_app
+  vars:
+    packages_pacman:
+      - fzf
+    packages_apt: []
+    pre_stow_folders: []
+    packages_stow: []
+
+- name: Install fzf (Ubuntu)
+  ansible.builtin.include_tasks: tasks_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'

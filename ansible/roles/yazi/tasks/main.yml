@@ -1,0 +1,29 @@
+---
+- name: Install and configure yazi
+  ansible.builtin.import_role:
+    name: _base_app
+  vars:
+    packages_pacman:
+      - yazi
+      - ffmpegthumbnailer
+      - p7zip
+      - jq
+      - poppler
+      - fd
+      - ripgrep
+      - imagemagick
+    packages_apt:
+      - ffmpegthumbnailer
+      - p7zip
+      - jq
+      - poppler-utils
+      - fd-find
+      - ripgrep
+      - imagemagick
+    pre_stow_folders: []
+    packages_stow:
+      - yazi
+
+- name: Install yazi (Ubuntu)
+  ansible.builtin.include_tasks: tasks_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'

@@ -1,0 +1,22 @@
+---
+- name: Install and configure tmux
+  ansible.builtin.import_role:
+    name: _base_app
+  vars:
+    packages_pacman:
+      - tmux
+      - tmuxp
+    packages_apt:
+      - tmux
+      - tmuxp
+    pre_stow_folders: []
+    packages_stow:
+      - tmux
+      - tmuxp
+
+- name: Git checkout TPM
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ tmp_dir }}"
+    version: "{{ tpm_version }}"
+  notify: Install TPM plugins

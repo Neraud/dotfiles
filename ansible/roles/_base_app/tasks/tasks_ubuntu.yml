@@ -1,0 +1,6 @@
+---
+- name: "[{{ ansible_parent_role_names | first }}] Install packages (Ubuntu)"
+  ansible.builtin.apt:
+    pkg: "{{ packages_apt }}"
+    state: present
+  become: yes

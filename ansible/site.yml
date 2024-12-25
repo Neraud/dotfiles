@@ -1,0 +1,14 @@
+---
+- name: Configure workstation
+  hosts: workstation
+  roles:
+    - requirements
+    - zsh
+    - bat
+    - btop
+    - eza
+    - fzf
+    - k9s
+    - tmux
+    - yazi
+    - zoxide

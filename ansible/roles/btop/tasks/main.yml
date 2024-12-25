@@ -1,0 +1,14 @@
+---
+- name: Install and configure btop
+  ansible.builtin.import_role:
+    name: _base_app
+  vars:
+    packages_pacman:
+      - btop
+    packages_apt:
+      - btop
+    pre_stow_folders:
+      # btop stores a log at $HOME/.config/btop/btop.log, so make sure the folder exist to avoid stowing it
+      - .config/btop
+    packages_stow:
+      - btop

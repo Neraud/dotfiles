@@ -1,0 +1,20 @@
+---
+- name: Install and configure requirements
+  ansible.builtin.import_role:
+    name: _base_app
+  vars:
+    packages_pacman:
+      - git
+      - stow
+      - ttf-jetbrains-mono-nerd
+    packages_apt:
+      - git
+      - stow
+    pre_stow_folders:
+      # Make sure .config exists to avoid stowing it to the first package that uses it
+      - .config
+    packages_stow: []
+
+- name: Install requirements (Ubuntu)
+  ansible.builtin.include_tasks: tasks_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'

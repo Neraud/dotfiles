@@ -1,0 +1,3 @@
+---
+# curl https://api.github.com/repos/junegunn/fzf/releases | jq -r '.[0].name'
+fzf_version: 0.57.0

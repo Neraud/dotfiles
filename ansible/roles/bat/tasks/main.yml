@@ -1,0 +1,35 @@
+---
+- name: Install and configure bat
+  ansible.builtin.import_role:
+    name: _base_app
+  vars:
+    packages_pacman:
+      - bat
+    packages_apt:
+      - bat
+    pre_stow_folders: []
+    packages_stow:
+      - bat
+
+- name: Install bat (Ubuntu)
+  ansible.builtin.include_tasks: tasks_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Check bat cache dates
+  ansible.builtin.find:
+    paths: "{{ ansible_user_dir }}/.cache/bat"
+  register: bat_cache_files
+
+- name: Check bat themes dates
+  ansible.builtin.find:
+    paths: "{{ ansible_user_dir }}/.config/bat/themes"
+  register: bat_theme_files
+
+- name: Extract most recent theme and cache changes
+  set_fact:
+    bat_last_cache: "{{ bat_cache_files.files | sort(attribute='mtime',reverse=true) | first | default(None) }}"
+    bat_last_theme: "{{ bat_theme_files.files | sort(attribute='mtime',reverse=true) | first | default(None) }}"
+
+- name: Rebuild bat cache
+  command: bat cache --build
+  when: not bat_last_cache or (bat_last_theme and bat_last_theme.mtime > bat_last_cache.mtime)

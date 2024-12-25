@@ -2,10 +2,20 @@
 
 ## Shell
 
-`configure_shell.sh` installs and configures a working `zsh` shell.
+The ansible playbook under the `ansible` folder installs and configures a working `zsh` shell.
 It has been developed for Ubuntu (22 or 24 LTS) and Arch.
 
-Configurations in this repo are linked to their path (usually under $HOME/.config) using GNU stow.
+Configurations in this repo are linked to their path (usually under `$HOME/.config`) using GNU stow.
+
+### Installation
+
+```bash
+# Install ansible requirements
+./ansible/install_requirements.sh
+
+# Run the playbook
+./ansible/run_ansible.sh
+```
 
 ### Zsh shell
 

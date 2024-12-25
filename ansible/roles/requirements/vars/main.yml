@@ -1,0 +1,5 @@
+---
+nerd_fonts_repo: ryanoasis/nerd-fonts
+# curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases | jq -r '.[0].name'
+nerd_fonts_version: v3.3.0
+nerd_font_name: JetBrainsMono

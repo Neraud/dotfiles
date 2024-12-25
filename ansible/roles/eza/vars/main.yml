@@ -1,0 +1,3 @@
+---
+# curl -s https://api.github.com/repos/eza-community/eza/releases | jq -r '.[0].name' | sed 's/^eza //'
+eza_version: v0.20.13

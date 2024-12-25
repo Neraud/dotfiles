@@ -1,0 +1,50 @@
+---
+- name: Get stats of default zsh configurations
+  ansible.builtin.stat:
+    path: "{{ ansible_user_dir }}/{{ item }}"
+  register: zsh_default_stats
+  loop:
+    - .zshrc
+    - .zshenv
+
+# Stow refuses to overwrite a regular file, so we backup and delete existing configs
+- name: Backup existing default zsh configurations
+  ansible.builtin.copy:
+    dest: "{{ item.stat.path }}"
+    content: "To be deleted"
+    backup: yes
+  loop: "{{ zsh_default_stats.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when:
+    - item.stat.exists
+    - not item.stat.islnk
+
+- name: Delete existing default zsh configurations
+  ansible.builtin.file:
+    path: "{{ item.stat.path }}"
+    state: absent
+  loop: "{{ zsh_default_stats.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when:
+    - item.stat.exists
+    - not item.stat.islnk
+
+- name: Install and configure zsh
+  ansible.builtin.import_role:
+    name: _base_app
+  vars:
+    packages_pacman:
+      - zsh
+    packages_apt:
+      - zsh
+    pre_stow_folders: []
+    packages_stow:
+      - zsh
+
+- name: Configure user shell to zsh
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    shell: /usr/bin/zsh
+  become: yes

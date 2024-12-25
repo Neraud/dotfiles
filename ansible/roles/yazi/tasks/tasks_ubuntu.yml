@@ -1,0 +1,52 @@
+---
+- name: Get installed yazi version
+  command: yazi --version
+  changed_when: no
+  failed_when: no
+  register: current_yazi_version
+
+- name: Install yazi from the Github releases
+  block:
+    - name: Download yazi release
+      ansible.builtin.get_url:
+        url: https://github.com/sxyazi/yazi/releases/download/{{ yazi_version }}/yazi-x86_64-unknown-linux-gnu.zip
+        dest: /tmp/yazi-x86_64-unknown-linux-gnu.zip
+
+    - name: Install yazi
+      ansible.builtin.unarchive:
+        src: /tmp/yazi-x86_64-unknown-linux-gnu.zip
+        dest: /usr/local/bin
+        # junk paths. The archive's directory structure is not recreated; all files are deposited in the extraction directory
+        extra_opts: -j
+        include:
+          - yazi-x86_64-unknown-linux-gnu/ya
+          - yazi-x86_64-unknown-linux-gnu/yazi
+      become: yes
+
+    - name: Install yazi bash completion
+      ansible.builtin.unarchive:
+        src: /tmp/yazi-x86_64-unknown-linux-gnu.zip
+        dest: /etc/bash_completion.d
+        # junk paths. The archive's directory structure is not recreated; all files are deposited in the extraction directory
+        extra_opts: -j
+        include:
+          - yazi-x86_64-unknown-linux-gnu/completions/ya.bash
+          - yazi-x86_64-unknown-linux-gnu/completions/yazi.bash
+      become: yes
+
+    - name: Install yazi zsh completion
+      ansible.builtin.unarchive:
+        src: /tmp/yazi-x86_64-unknown-linux-gnu.zip
+        dest: /usr/local/share/zsh/site-functions/
+        # junk paths. The archive's directory structure is not recreated; all files are deposited in the extraction directory
+        extra_opts: -j
+        include:
+          - yazi-x86_64-unknown-linux-gnu/completions/_ya
+          - yazi-x86_64-unknown-linux-gnu/completions/_yazi
+      become: yes
+
+    - name: Delete temporary file
+      ansible.builtin.file:
+        path: /tmp/yazi-x86_64-unknown-linux-gnu.zip
+        state: absent
+  when: yazi_version[1:] not in current_yazi_version.stdout

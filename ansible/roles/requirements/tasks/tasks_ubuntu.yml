@@ -1,0 +1,30 @@
+---
+- name: Ensure directory /usr/local/share/fonts exists
+  ansible.builtin.file:
+    path: /usr/local/share/fonts
+    state: directory
+  become: yes
+
+- name: Get installed nerd font version
+  ansible.builtin.slurp:
+    src: /usr/local/share/fonts/{{ nerd_font_name }}.version
+  ignore_errors: true
+  register: current_nerd_font_version
+
+- name: Install nerd font from the Github releases
+  block:
+    - name: Install nerd font
+      ansible.builtin.unarchive:
+        src: https://github.com/{{ nerd_fonts_repo }}/releases/download/{{ nerd_fonts_version }}/{{ nerd_font_name }}.tar.xz
+        dest: /usr/local/share/fonts
+        remote_src: yes
+      notify: Rebuild font cache
+      become: yes
+
+    - name: Save installed version
+      ansible.builtin.copy:
+        dest: /usr/local/share/fonts/{{ nerd_font_name }}.version
+        content: "{{ nerd_fonts_version }}"
+      become: yes
+
+  when: "current_nerd_font_version.failed or nerd_fonts_version not in (current_nerd_font_version.content | b64decode)"
