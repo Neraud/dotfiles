@@ -39,6 +39,7 @@ It also deploys:
 * [zoxide](https://github.com/ajeetdsouza/zoxide)
 * [eza](https://github.com/eza-community/eza)
 * [bat](https://github.com/sharkdp/bat)
+* [fastfetch](https://github.com/fastfetch-cli/fastfetch)
 * [yazi](https://github.com/sxyazi/yazi)
 * tmux and tmuxp
 * btop

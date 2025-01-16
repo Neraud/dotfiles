@@ -34,6 +34,9 @@ echo "Updating ansible variables"
 eza_version=$(curl -s https://api.github.com/repos/eza-community/eza/releases | jq -r '.[0].name' | sed 's/^eza //')
 update_ansible_variable eza eza_version ${eza_version}
 
+fastfetch_version=$(curl -s https://api.github.com/repos/fastfetch-cli/fastfetch/releases | jq -r '.[0].name')
+update_ansible_variable fastfetch fastfetch_version ${fastfetch_version}
+
 fzf_version=$(curl -s https://api.github.com/repos/junegunn/fzf/releases | jq -r '.[0].name')
 update_ansible_variable fzf fzf_version ${fzf_version}
 

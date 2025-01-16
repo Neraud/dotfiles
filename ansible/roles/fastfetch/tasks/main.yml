@@ -1,0 +1,15 @@
+---
+- name: Install and configure fastfetch
+  ansible.builtin.import_role:
+    name: _base_app
+  vars:
+    packages_pacman:
+      - fastfetch
+    packages_apt: []
+    pre_stow_folders: []
+    packages_stow:
+      - fastfetch
+
+- name: Install fastfetch (Ubuntu)
+  ansible.builtin.include_tasks: tasks_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'

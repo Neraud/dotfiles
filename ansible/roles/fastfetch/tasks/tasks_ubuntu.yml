@@ -1,0 +1,5 @@
+---
+- name: Install fastfetch from the Github releases
+  ansible.builtin.apt:
+    deb: https://github.com/fastfetch-cli/fastfetch/releases/download/{{ fastfetch_version }}/fastfetch-linux-amd64.deb
+  become: yes
