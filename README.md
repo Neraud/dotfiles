@@ -40,6 +40,7 @@ It also deploys:
 * [eza](https://github.com/eza-community/eza)
 * [bat](https://github.com/sharkdp/bat)
 * [fastfetch](https://github.com/fastfetch-cli/fastfetch)
+* [topgrade](https://github.com/topgrade-rs/topgrade)
 * [yazi](https://github.com/sxyazi/yazi)
 * tmux and tmuxp
 * btop
