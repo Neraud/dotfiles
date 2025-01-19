@@ -17,6 +17,5 @@
 - name: Git checkout TPM
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
-    dest: "{{ tmp_dir }}"
-    version: "{{ tpm_version }}"
+    dest: "{{ tpm_dir }}"
   notify: Install TPM plugins

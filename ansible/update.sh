@@ -49,9 +49,6 @@ update_ansible_variable requirements nerd_fonts_version ${nerd_fonts_version}
 topgrade_version=$(curl -s https://api.github.com/repos/topgrade-rs/topgrade/releases | jq -r '.[0].tag_name')
 update_ansible_variable topgrade topgrade_version ${topgrade_version}
 
-tpm_version=$(curl -s https://api.github.com/repos/tmux-plugins/tpm/tags | jq -r '.[0].name')
-update_ansible_variable tmux tpm_version ${tpm_version}
-
 yazi_version=$(curl -s https://api.github.com/repos/sxyazi/yazi/releases | jq -r '.[0].name')
 update_ansible_variable yazi yazi_version ${yazi_version}
 
