@@ -3,6 +3,12 @@
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 DOTFILES_ROOT="${PROJECT_DIR}/.."
 
+function get_github_last_release {
+    repo="$1"
+    curl -s https://api.github.com/repos/$repo/releases \
+        | jq -r 'first(.[] | select(.prerelease == false and .draft == false) | .tag_name)'
+}
+
 function update_ansible_variable {
     role=$1
     variable=$2
@@ -31,28 +37,28 @@ function update_ansible_variable {
 }
 
 echo "Updating ansible variables"
-eza_version=$(curl -s https://api.github.com/repos/eza-community/eza/releases | jq -r '.[0].name' | sed 's/^eza //')
+eza_version=$(get_github_last_release eza-community/eza)
 update_ansible_variable eza eza_version ${eza_version}
 
-fastfetch_version=$(curl -s https://api.github.com/repos/fastfetch-cli/fastfetch/releases | jq -r '.[0].name')
+fastfetch_version=$(get_github_last_release fastfetch-cli/fastfetch)
 update_ansible_variable fastfetch fastfetch_version ${fastfetch_version}
 
-fzf_version=$(curl -s https://api.github.com/repos/junegunn/fzf/releases | jq -r '.[0].name')
+fzf_version=$(get_github_last_release junegunn/fzf)
 update_ansible_variable fzf fzf_version ${fzf_version}
 
-k9s_version=$(curl -s https://api.github.com/repos/derailed/k9s/releases | jq -r '.[0].name')
+k9s_version=$(get_github_last_release derailed/k9s)
 update_ansible_variable k9s k9s_version ${k9s_version}
 
-nerd_fonts_version=$(curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases | jq -r '.[0].name')
+nerd_fonts_version=$(get_github_last_release ryanoasis/nerd-fonts)
 update_ansible_variable requirements nerd_fonts_version ${nerd_fonts_version}
 
-topgrade_version=$(curl -s https://api.github.com/repos/topgrade-rs/topgrade/releases | jq -r '.[0].tag_name')
+topgrade_version=$(get_github_last_release topgrade-rs/topgrade)
 update_ansible_variable topgrade topgrade_version ${topgrade_version}
 
-yazi_version=$(curl -s https://api.github.com/repos/sxyazi/yazi/releases | jq -r '.[0].name')
+yazi_version=$(get_github_last_release sxyazi/yazi)
 update_ansible_variable yazi yazi_version ${yazi_version}
 
-zoxide_version=$(curl -s https://api.github.com/repos/ajeetdsouza/zoxide/releases | jq -r '.[0].name')
+zoxide_version=$(get_github_last_release ajeetdsouza/zoxide)
 update_ansible_variable zoxide zoxide_version ${zoxide_version}
 
 echo ""
