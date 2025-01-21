@@ -9,10 +9,16 @@ disable = [
     "gcloud", # Usually installed via the system packet manager
 ]
 
+# Run specific steps - same options as the command line flag
+# only = ["system", "emacs"]
+
 # Whether to self update
 # this will be ignored if the binary is built without self update support
 # available also via setting the environment variable TOPGRADE_NO_SELF_UPGRADE)
 no_self_update = true
+
+# Do not set the terminal title (default: true)
+set_title = false
 
 [git]
 # Additional git repositories to pull
