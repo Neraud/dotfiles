@@ -22,10 +22,9 @@ set_title = false
 
 [git]
 # Additional git repositories to pull
-# repos = [
-#     "~/src/*/",
-#     "~/.config/something"
-# ]
+repos = [
+    "~/.*/", # Include repos like ~/.pyenv, ~/.tfenv, ...
+]
 
 # Don't pull the predefined git repos
 # pull_predefined = false
