@@ -49,6 +49,9 @@ update_ansible_variable fzf fzf_version ${fzf_version}
 k9s_version=$(get_github_last_release derailed/k9s)
 update_ansible_variable k9s k9s_version ${k9s_version}
 
+lazygit_version=$(get_github_last_release jesseduffield/lazygit)
+update_ansible_variable lazygit lazygit_version ${lazygit_version}
+
 nerd_fonts_version=$(get_github_last_release ryanoasis/nerd-fonts)
 update_ansible_variable requirements nerd_fonts_version ${nerd_fonts_version}
 
@@ -74,6 +77,9 @@ curl -sL https://github.com/catppuccin/k9s/archive/main.tar.gz | tar xz -C "${DO
 
 echo "- kitty (catppuccin theme)"
 curl -sL -o "${DOTFILES_ROOT}/kitty/.config/kitty/current-theme.conf" https://raw.githubusercontent.com/catppuccin/kitty/refs/heads/main/themes/mocha.conf
+
+echo "- lazygit (catppuccin theme)"
+curl -sL -o "${DOTFILES_ROOT}/lazygit/.config/lazygit/theme.yml" https://raw.githubusercontent.com/catppuccin/lazygit/refs/heads/main/themes-mergable/mocha/lavender.yml
 
 echo "- yazi (catppuccin theme)"
 curl -sL -o "${DOTFILES_ROOT}/yazi/.config/yazi/theme.toml" https://raw.githubusercontent.com/catppuccin/yazi/refs/heads/main/themes/mocha/catppuccin-mocha-lavender.toml

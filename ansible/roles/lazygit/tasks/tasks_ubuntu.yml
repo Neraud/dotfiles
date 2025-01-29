@@ -1,0 +1,15 @@
+---
+- name: Get installed lazygit version
+  shell: |
+    lazygit --version | sed -E 's/^(.*, )?version=([^,]+)(,.*)?$/\2/'
+  changed_when: no
+  failed_when: no
+  register: current_lazygit_version
+
+- name: Install lazygit from the Github releases
+  ansible.builtin.unarchive:
+    src: https://github.com/jesseduffield/lazygit/releases/download/{{ lazygit_version }}/lazygit_{{ lazygit_version[1:] }}_Linux_x86_64.tar.gz
+    dest: /usr/local/bin/
+    remote_src: yes
+  become: yes
+  when: lazygit_version[1:] != current_lazygit_version.stdout
