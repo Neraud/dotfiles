@@ -3,7 +3,7 @@
 ## Shell
 
 The ansible playbook under the `ansible` folder installs and configures a working `zsh` shell.
-It has been developed for Ubuntu (22 or 24 LTS) and Arch.
+It has been developed for Ubuntu 24 LTS and Arch.
 
 Configurations in this repo are linked to their path (usually under `$HOME/.config`) using GNU stow.
 
@@ -34,14 +34,14 @@ Host specific configurations are supported, and are optionally loaded from `$HOM
 It also deploys:
 
 * JetBrainsMono NerdFont
-* [fzf](https://github.com/junegunn/fzf)
 * [stow](https://www.gnu.org/software/stow/) to link files from this repo under home
-* [zoxide](https://github.com/ajeetdsouza/zoxide)
-* [eza](https://github.com/eza-community/eza)
 * [bat](https://github.com/sharkdp/bat)
+* btop
+* [eza](https://github.com/eza-community/eza)
 * [fastfetch](https://github.com/fastfetch-cli/fastfetch)
+* [fzf](https://github.com/junegunn/fzf)
+* [k9s](https://github.com/derailed/k9s)
+* tmux and tmuxp
 * [topgrade](https://github.com/topgrade-rs/topgrade)
 * [yazi](https://github.com/sxyazi/yazi)
-* tmux and tmuxp
-* btop
-* [k9s](https://github.com/derailed/k9s)
+* [zoxide](https://github.com/ajeetdsouza/zoxide)
