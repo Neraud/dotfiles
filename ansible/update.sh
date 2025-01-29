@@ -52,6 +52,9 @@ update_ansible_variable k9s k9s_version ${k9s_version}
 lazygit_version=$(get_github_last_release jesseduffield/lazygit)
 update_ansible_variable lazygit lazygit_version ${lazygit_version}
 
+lazydocker_version=$(get_github_last_release jesseduffield/lazydocker)
+update_ansible_variable lazydocker lazydocker_version ${lazydocker_version}
+
 nerd_fonts_version=$(get_github_last_release ryanoasis/nerd-fonts)
 update_ansible_variable requirements nerd_fonts_version ${nerd_fonts_version}
 

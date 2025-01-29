@@ -42,6 +42,7 @@ It also deploys:
 * [fzf](https://github.com/junegunn/fzf)
 * [k9s](https://github.com/derailed/k9s)
 * [lazygit](https://github.com/jesseduffield/lazygit)
+* [lazydocker](https://github.com/jesseduffield/lazydocker)
 * tmux and tmuxp
 * [topgrade](https://github.com/topgrade-rs/topgrade)
 * [yazi](https://github.com/sxyazi/yazi)

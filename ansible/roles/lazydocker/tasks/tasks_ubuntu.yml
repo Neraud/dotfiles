@@ -1,0 +1,15 @@
+---
+- name: Get installed lazydocker version
+  shell: |
+    lazydocker --version | grep '^Version:' | sed -E 's/^.*: ?//'
+  changed_when: no
+  failed_when: no
+  register: current_lazydocker_version
+
+- name: Install lazydocker from the Github releases
+  ansible.builtin.unarchive:
+    src: https://github.com/jesseduffield/lazydocker/releases/download/{{ lazydocker_version }}/lazydocker_{{ lazydocker_version[1:] }}_Linux_x86_64.tar.gz
+    dest: /usr/local/bin/
+    remote_src: yes
+  become: yes
+  when: lazydocker_version[1:] != current_lazydocker_version.stdout

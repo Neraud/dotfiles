@@ -1,0 +1,16 @@
+---
+- name: Install and configure lazydocker
+  ansible.builtin.import_role:
+    name: _base_app
+  vars:
+    packages_pacman: []
+    packages_aur:
+      - lazydocker
+    packages_apt: []
+    pre_stow_folders: []
+    packages_stow:
+      - lazydocker
+
+- name: Install lazydocker (Ubuntu)
+  ansible.builtin.include_tasks: tasks_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'

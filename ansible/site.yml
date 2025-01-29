@@ -10,6 +10,7 @@
     - fastfetch
     - fzf
     - k9s
+    - lazydocker
     - lazygit
     - tmux
     - topgrade
