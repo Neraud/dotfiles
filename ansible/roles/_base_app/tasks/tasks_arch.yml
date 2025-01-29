@@ -1,6 +1,14 @@
 ---
-- name: "[{{ ansible_parent_role_names | first }}] Install packages (Arch)"
+- name: "[{{ ansible_parent_role_names | first }}] Install packages (Arch - pacman)"
   community.general.pacman:
     name: "{{ packages_pacman }}"
     state: present
   become: yes
+
+- name: "[{{ ansible_parent_role_names | first }}] Install packages (Arch - AUR)"
+  kewlfft.aur.aur:
+    name: "{{ packages_aur }}"
+    state: present
+  when: packages_aur | length > 0
+  become: true
+  become_user: "{{ aur_builder_user }}"

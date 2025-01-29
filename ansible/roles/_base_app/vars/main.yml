@@ -1,5 +1,8 @@
 ---
 packages_pacman: []
+packages_aur: []
 packages_apt: []
 pre_stow_folders: []
 packages_stow: []
+
+aur_builder_user: aur_builder
