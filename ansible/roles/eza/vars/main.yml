@@ -1,3 +1,3 @@
 ---
 # curl -s https://api.github.com/repos/eza-community/eza/releases | jq -r 'first(.[] | select(.prerelease == false and .draft == false) | .tag_name)'
-eza_version: v0.20.18
+eza_version: v0.20.20
