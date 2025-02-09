@@ -23,7 +23,8 @@ set_title = false
 [git]
 # Additional git repositories to pull
 repos = [
-    "~/.*/", # Include repos like ~/.pyenv, ~/.tfenv, ...
+    "~/.*/",            # Include repos like ~/.pyenv, ~/.tfenv, ...
+    "~/.zsh/plugins/*", # Include zsh plugins
 ]
 
 # Don't pull the predefined git repos
