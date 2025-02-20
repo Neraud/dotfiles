@@ -20,6 +20,9 @@ no_self_update = true
 # Do not set the terminal title (default: true)
 set_title = false
 
+# Cleanup temporary or old files (default: false)
+cleanup = true
+
 [git]
 # Additional git repositories to pull
 repos = [
