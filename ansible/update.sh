@@ -87,3 +87,7 @@ curl -sL -o "${DOTFILES_ROOT}/lazygit/.config/lazygit/theme.yml" https://raw.git
 echo "- yazi (catppuccin theme)"
 curl -sL -o "${DOTFILES_ROOT}/yazi/.config/yazi/theme.toml" https://raw.githubusercontent.com/catppuccin/yazi/refs/heads/main/themes/mocha/catppuccin-mocha-lavender.toml
 sed -i -E 's|^syntect_theme +=.*|syntect_theme = "~/.config/bat/themes/catppuccin-mocha.tmTheme"|' ${DOTFILES_ROOT}/yazi/.config/yazi/theme.toml
+
+echo "- tmux (catppuccin theme)"
+tmux_catppuccin_version=$(get_github_last_release catppuccin/tmux)
+sed -i -E "s|^set -g @plugin 'catppuccin/tmux#v.*'$|set -g @plugin 'catppuccin/tmux#${tmux_catppuccin_version}'|" ${DOTFILES_ROOT}/tmux/.config/tmux/theme.conf
