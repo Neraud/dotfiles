@@ -39,3 +39,6 @@ repos = [
 # ignored_containers = ["ghcr.io/rancher-sandbox/rancher-desktop/rdx-proxy:latest", "docker.io*"]
 # Specify the runtime to use for containers (default: "docker", allowed values: "docker", "podman")
 # runtime = "podman"
+
+[post_commands]
+"Regenerate ZSH completions" = "zsh ${HOME}/.config/zsh/scripts/completion-cache-generator.zsh"

@@ -11,6 +11,9 @@ if ! print -rl $fpath | grep -q '/usr/share/zsh/site-functions' ; then
   fpath=(/usr/share/zsh/site-functions $fpath)
 fi
 
+# Add user functions path to fpath
+fpath=($ZSH_USER_FUNCTIONS_DIR $fpath)
+
 source ${ZSH_CONFIG_DIR}/install_plugins.zsh
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
