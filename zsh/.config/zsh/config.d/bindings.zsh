@@ -31,6 +31,9 @@ key[Control-Down]="${terminfo[kDN5]}"
 key[Control-Left]="${terminfo[kLFT5]}"
 key[Control-Right]="${terminfo[kRIT5]}"
 
+# Standard widgets:
+# https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets
+
 # setup key accordingly
 [[ -n "${key[Home]}"      ]] && bindkey -- "${key[Home]}"       beginning-of-line
 [[ -n "${key[End]}"       ]] && bindkey -- "${key[End]}"        end-of-line
@@ -73,3 +76,32 @@ fi
 # Control-Up/Down to navigate history, even for multiline commands
 [[ -n "${key[Control-Up]}"   ]] && bindkey -- "${key[Control-Up]}"   up-history
 [[ -n "${key[Control-Down]}" ]] && bindkey -- "${key[Control-Down]}" down-history
+
+##################################################
+#                      sesh                      #
+##################################################
+function sesh-sessions() {
+    exec </dev/tty
+    exec <&1
+    local session
+    #session=$(sesh list | fzf --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ')
+	session=$(sesh list --icons | fzf --height 40% --reverse \
+		--ansi --border-label ' sesh ' --border --prompt '⚡  ' \
+		--header '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^y yazi' \
+		--bind 'tab:down,btab:up' \
+		--bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list --icons)' \
+		--bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t --icons)' \
+		--bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c --icons)' \
+		--bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z --icons)' \
+		--bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons)' \
+		--bind 'ctrl-y:become(yazi --chooser-file=/dev/stdout {2..})' \
+		--preview-window 'right:45%' \
+		--preview 'sesh preview {}' \
+	)
+	zle reset-prompt > /dev/null 2>&1 || true
+    [[ -z "$session" ]] && return
+    sesh connect $session
+}
+
+zle     -N    sesh-sessions
+bindkey '\es' sesh-sessions
