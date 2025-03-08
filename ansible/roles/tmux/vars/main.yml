@@ -1,2 +1,4 @@
 ---
 tpm_dir: "{{ ansible_user_dir }}/.tmux/plugins/tpm"
+# curl -s https://api.github.com/repos/joshmedeski/sesh/releases | jq -r 'first(.[] | select(.prerelease == false and .draft == false) | .tag_name)'
+sesh_version: v2.13.0

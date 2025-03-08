@@ -1,0 +1,17 @@
+---
+- name: Get installed sesh version
+  shell: |
+    sesh --version
+  changed_when: no
+  failed_when: no
+  register: current_sesh_version
+
+- name: Install sesh from the Github releases
+  ansible.builtin.unarchive:
+    src: https://github.com/joshmedeski/sesh/releases/download/{{ sesh_version }}/sesh_Linux_x86_64.tar.gz
+    dest: /usr/local/bin/
+    remote_src: yes
+    include:
+      - sesh
+  become: yes
+  when: sesh_version[1:] not in current_sesh_version.stdout

@@ -58,6 +58,9 @@ update_ansible_variable lazydocker lazydocker_version ${lazydocker_version}
 nerd_fonts_version=$(get_github_last_release ryanoasis/nerd-fonts)
 update_ansible_variable requirements nerd_fonts_version ${nerd_fonts_version}
 
+sesh_version=$(get_github_last_release joshmedeski/sesh)
+update_ansible_variable tmux sesh_version ${sesh_version}
+
 topgrade_version=$(get_github_last_release topgrade-rs/topgrade)
 update_ansible_variable topgrade topgrade_version ${topgrade_version}
 

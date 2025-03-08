@@ -1,11 +1,13 @@
 ---
-- name: Install and configure tmux
+- name: Install and configure tmux & tools
   ansible.builtin.import_role:
     name: _base_app
   vars:
     packages_pacman:
       - tmux
       - tmuxp
+    packages_aur:
+      - sesh-bin
     packages_apt:
       - tmux
       - tmuxp
@@ -13,9 +15,14 @@
     packages_stow:
       - tmux
       - tmuxp
+      - sesh
 
 - name: Git checkout TPM
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
     dest: "{{ tpm_dir }}"
   notify: Install TPM plugins
+
+- name: Install tmux tools (Ubuntu)
+  ansible.builtin.include_tasks: tasks_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
