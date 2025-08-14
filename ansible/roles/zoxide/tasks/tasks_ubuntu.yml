@@ -1,5 +1,5 @@
 ---
-- name: Install k9s from the Github releases
+- name: Install zoxide from the Github releases
   ansible.builtin.apt:
     deb: https://github.com/ajeetdsouza/zoxide/releases/download/{{ zoxide_version }}/zoxide_{{ zoxide_version[1:] }}-1_amd64.deb
   become: yes
