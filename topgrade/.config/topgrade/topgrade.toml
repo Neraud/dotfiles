@@ -6,7 +6,8 @@ pre_sudo = true
 
 # Disable specific steps - same options as the command line flag
 disable = [
-    "gcloud", # Usually installed via the system packet manager
+    "gcloud",     # Usually installed via the system packet manager
+    "containers", # Too many failures for local/private images, and not useful enough
 ]
 
 # Run specific steps - same options as the command line flag
@@ -32,13 +33,6 @@ repos = [
 
 # Don't pull the predefined git repos
 # pull_predefined = false
-
-# containers = ["archlinux-latest"]
-[containers]
-# Specify the containers to ignore while updating (Wildcard supported)
-# ignored_containers = ["ghcr.io/rancher-sandbox/rancher-desktop/rdx-proxy:latest", "docker.io*"]
-# Specify the runtime to use for containers (default: "docker", allowed values: "docker", "podman")
-# runtime = "podman"
 
 [post_commands]
 "Regenerate ZSH completions" = "zsh ${HOME}/.config/zsh/scripts/completion-cache-generator.zsh"
