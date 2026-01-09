@@ -7,6 +7,10 @@ It has been developed for Ubuntu 24 LTS and Arch.
 
 Configurations in this repo are linked to their path (usually under `$HOME/.config`) using GNU stow.
 
+### Requirements
+
+* pyenv: <https://github.com/pyenv/pyenv>
+
 ### Installation
 
 ```bash

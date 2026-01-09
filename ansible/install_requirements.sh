@@ -17,19 +17,19 @@ if [ $? -ne 0 ] ; then
     exit
 fi
 
-if ! (command -v python3 && command -v pip3) 2>&1 >/dev/null ; then
-    echo "Installing python3 and pip3 requirements"
-    if [ "${os_id}" == "ubuntu" ] ; then
-        sudo apt-get -y install python3 python3-pip
-    elif [ "${os_id}" == "arch" ] ; then
-        sudo pacman -S --noconfirm python python-pip
-    fi
+if ! (command -v pyenv) 2>&1 >/dev/null ; then
+    echo "pyenv not found, please install it before running this script." >&2
+    exit
 fi
 
+echo "Install required python version"
+(cd ${PROJECT_DIR} && pyenv install)
 
+echo ""
 echo "Create and activate ansible virtual env"
-python3 -m venv ${ANSIBLE_VENV_PATH}
+(cd ${PROJECT_DIR} && python3 -m venv ${ANSIBLE_VENV_PATH})
 source ${ANSIBLE_VENV_PATH}/bin/activate
 
+echo ""
 echo "Install python ansible requirements"
 pip3 install -r ${PROJECT_DIR}/requirements.txt
