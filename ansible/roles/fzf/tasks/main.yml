@@ -11,4 +11,4 @@
 
 - name: Install fzf (Ubuntu)
   ansible.builtin.include_tasks: tasks_ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_facts['distribution'] == 'Ubuntu'

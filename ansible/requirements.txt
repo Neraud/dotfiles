@@ -1,2 +1,1 @@
-#Ubuntu 22 LTS ships with python 3.10, which usn't supported for ansible >=11
-ansible==10.6.0
+ansible==13.2.0

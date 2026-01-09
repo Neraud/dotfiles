@@ -13,16 +13,16 @@
 
 - name: Install bat (Ubuntu)
   ansible.builtin.include_tasks: tasks_ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_facts['distribution'] == 'Ubuntu'
 
 - name: Check bat cache dates
   ansible.builtin.find:
-    paths: "{{ ansible_user_dir }}/.cache/bat"
+    paths: "{{ ansible_facts['user_dir'] }}/.cache/bat"
   register: bat_cache_files
 
 - name: Check bat themes dates
   ansible.builtin.find:
-    paths: "{{ ansible_user_dir }}/.config/bat/themes"
+    paths: "{{ ansible_facts['user_dir'] }}/.config/bat/themes"
   register: bat_theme_files
 
 - name: Extract most recent theme and cache changes

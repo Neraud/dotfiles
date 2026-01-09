@@ -1,7 +1,7 @@
 ---
 - name: Ensure directory ~/.local/bin exists
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.local/bin"
+    path: "{{ ansible_facts['user_dir'] }}/.local/bin"
     state: directory
 
 # The APT package installs bat as `batcat`
@@ -9,5 +9,5 @@
 - name: Ensure batcat is symlinked as bat
   ansible.builtin.file:
     src: /usr/bin/batcat
-    dest: "{{ ansible_user_dir }}/.local/bin/bat"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/bin/bat"
     state: link

@@ -1,7 +1,7 @@
 ---
 - name: Get stats of default zsh configurations
   ansible.builtin.stat:
-    path: "{{ ansible_user_dir }}/{{ item }}"
+    path: "{{ ansible_facts['user_dir'] }}/{{ item }}"
   register: zsh_default_stats
   loop:
     - .zshrc
@@ -45,6 +45,6 @@
 
 - name: Configure user shell to zsh
   ansible.builtin.user:
-    name: "{{ ansible_user_id }}"
+    name: "{{ ansible_facts['user_id'] }}"
     shell: /usr/bin/zsh
   become: yes
