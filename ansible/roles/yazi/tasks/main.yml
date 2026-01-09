@@ -20,6 +20,19 @@
       - fd-find
       - ripgrep
       - imagemagick
+    packages_homebrew:
+      - yazi
+      - ffmpeg
+      - sevenzip
+      - jq
+      - poppler
+      - fd
+      - ripgrep
+      - fzf
+      - zoxide
+      - resvg
+      - imagemagick
+      - font-symbols-only-nerd-font
     pre_stow_folders: []
     packages_stow:
       - yazi

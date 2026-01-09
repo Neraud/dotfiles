@@ -10,6 +10,8 @@
     packages_apt:
       - git
       - stow
+    packages_homebrew:
+      - stow
     pre_stow_folders:
       # Make sure .config exists to avoid stowing it to the first package that uses it
       - .config

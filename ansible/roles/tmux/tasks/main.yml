@@ -11,6 +11,10 @@
     packages_apt:
       - tmux
       - tmuxp
+    packages_homebrew:
+      - tmux
+      - tmuxp
+      - sesh
     pre_stow_folders: []
     packages_stow:
       - tmux

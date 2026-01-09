@@ -6,6 +6,8 @@
     packages_pacman:
       - fzf
     packages_apt: []
+    packages_homebrew:
+      - fzf
     pre_stow_folders: []
     packages_stow: []
 

@@ -2,6 +2,7 @@
 packages_pacman: []
 packages_aur: []
 packages_apt: []
+packages_homebrew: []
 pre_stow_folders: []
 packages_stow: []
 

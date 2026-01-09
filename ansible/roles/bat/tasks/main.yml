@@ -7,6 +7,8 @@
       - bat
     packages_apt:
       - bat
+    packages_homebrew:
+      - bat
     pre_stow_folders: []
     packages_stow:
       - bat
