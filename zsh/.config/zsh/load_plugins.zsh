@@ -9,5 +9,5 @@ source ${POWERLEVEL9K_CONFIG_FILE}
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 
-# Set up zoxide, remplace the cd command
+# Set up zoxide, replace the cd command
 eval "$(zoxide init zsh --cmd cd)"
