@@ -8,13 +8,21 @@ if [ "$EUID" -eq 0 ] ;   then
     exit
 fi
 
-os_id=$(grep -E "^ID=" /etc/os-release | cut -d= -f2)
-
-echo "arch ubuntu" | grep -w -q ${os_id}
+os_type=$(uname)
+echo "Linux Darwin" | grep -w -q ${os_type}
 if [ $? -ne 0 ] ; then
-    os_pretty_name=$(grep -E "^PRETTY_NAME=" /etc/os-release | cut -d= -f2)
-    echo "OS $os_pretty_name (${os_id}) is not supported" >&2
+    echo "OS type ${os_type} is not supported" >&2
     exit
+fi
+
+if [ "${os_type}" == "Linux" ] ; then
+    os_id=$(grep -E "^ID=" /etc/os-release | cut -d= -f2)
+    echo "arch ubuntu" | grep -w -q ${os_id}
+    if [ $? -ne 0 ] ; then
+        os_pretty_name=$(grep -E "^PRETTY_NAME=" /etc/os-release | cut -d= -f2)
+        echo "OS $os_pretty_name (${os_id}) is not supported" >&2
+        exit
+    fi
 fi
 
 if ! (command -v pyenv) 2>&1 >/dev/null ; then

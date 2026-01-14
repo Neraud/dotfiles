@@ -39,6 +39,7 @@
       - zsh
     packages_apt:
       - zsh
+    packages_homebrew: []
     pre_stow_folders: []
     packages_stow:
       - zsh
@@ -48,3 +49,4 @@
     name: "{{ ansible_facts['user_id'] }}"
     shell: /usr/bin/zsh
   become: yes
+  when: ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'Archlinux'

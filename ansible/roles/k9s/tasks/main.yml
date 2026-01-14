@@ -6,6 +6,8 @@
     packages_pacman:
       - k9s
     packages_apt: []
+    packages_homebrew:
+      - k9s
     pre_stow_folders:
       # Make sure the k9s clusters folder exists locally
       - .config/k9s/clusters

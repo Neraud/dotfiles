@@ -6,6 +6,8 @@
     packages_pacman:
       - zoxide
     packages_apt: []
+    packages_homebrew:
+      - zoxide
     pre_stow_folders: []
     packages_stow: []
 

@@ -6,6 +6,8 @@
     packages_pacman:
       - eza
     packages_apt: []
+    packages_homebrew:
+      - eza
     pre_stow_folders: []
     packages_stow: []
 

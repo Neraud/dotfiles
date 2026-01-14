@@ -1,0 +1,5 @@
+---
+- name: "[{{ ansible_parent_role_names | first }}] Install packages (Mac)"
+  community.general.homebrew:
+    pkg: "{{ packages_homebrew }}"
+    state: present

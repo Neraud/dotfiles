@@ -7,6 +7,8 @@
       - btop
     packages_apt:
       - btop
+    packages_homebrew:
+      - btop
     pre_stow_folders:
       # btop stores a log at $HOME/.config/btop/btop.log, so make sure the folder exist to avoid stowing it
       - .config/btop

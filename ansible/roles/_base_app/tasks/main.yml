@@ -7,6 +7,10 @@
   ansible.builtin.include_tasks: tasks_ubuntu.yml
   when: ansible_facts['distribution'] == 'Ubuntu'
 
+- name: "[{{ ansible_parent_role_names | first }}] Install app (Mac)"
+  ansible.builtin.include_tasks: tasks_mac.yml
+  when: ansible_facts['distribution'] == 'MacOSX'
+
 - name: "[{{ ansible_parent_role_names | first }}] Ensure pre-stow folders exist"
   ansible.builtin.file:
     path: "{{ ansible_facts['user_dir'] }}/{{ item }}"

@@ -6,6 +6,8 @@
     packages_pacman:
       - fastfetch
     packages_apt: []
+    packages_homebrew:
+      - fastfetch
     pre_stow_folders: []
     packages_stow:
       - fastfetch

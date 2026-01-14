@@ -7,6 +7,8 @@
     packages_aur:
       - lazygit
     packages_apt: []
+    packages_homebrew:
+      - lazygit
     pre_stow_folders: []
     packages_stow:
       - lazygit
